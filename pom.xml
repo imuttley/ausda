@@ -3,9 +3,9 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>it.enea.imuttley</groupId>
-	<artifactId>ausda-application</artifactId>
+	<artifactId>ausda-webapplication</artifactId>
 	<version>1.0</version>
-	<packaging>pom</packaging>
+	<packaging>war</packaging>
 
 	<name>ausda</name>
 	<url>http://maven.apache.org</url>
@@ -27,11 +27,11 @@
 		</resource>
 	</resources>
 
-	<modules>
+	<!-- <modules>
 		<module>dbmodel</module>
 		<module>applicationcontroller</module>
 		<module>webview</module>
-	</modules>
+	</modules>-->
 
 	<developers>
 		<developer>
