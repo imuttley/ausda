@@ -1,0 +1,66 @@
+<persistence xmlns="http://xmlns.jcp.org/xml/ns/persistence"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd"
+	version="2.1">
+
+	<!-- unità di persistenza file di configurazione per accesso a DB generico per analisi su schema 'AusdaDATABASE' -->
+	<persistence-unit name="AusdaDATABASE" transaction-type="RESOURCE_LOCAL">
+		<description>My database connector to DB mysql</description>
+		<provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+
+		<properties>
+			<!-- Configuring JDBC properties -->
+			<property name="javax.persistence.jdbc.url"
+				value="jdbc:mysql://192.168.126.174:3306/jpa_example" />
+			<property name="javax.persistence.jdbc.user" value="root" />
+			<property name="javax.persistence.jdbc.password" value="tommaso" />
+			<property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver" />
+
+			<!-- Hibernate properties -->
+			<property name="hibernate.show_sql" value="true" />
+			<property name="hibernate.format_sql" value="true" />
+			<property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5InnoDBDialect" />
+			<property name="hibernate.hbm2ddl.auto" value="create" />
+			<property name="hibernate.connection.autocommit" value="true" />
+		</properties>
+	</persistence-unit>
+	
+	<!-- unità di persistenza file di configurazione per accesso a DB per test di query, con nome 'AusdaTEST' -->
+	<persistence-unit name="AusdaTEST" transaction-type="RESOURCE_LOCAL">
+		<description>My database connector to DB mysql for query testing</description>
+		<provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+
+		<properties>
+			<!-- Configuring JDBC properties -->
+			<property name="javax.persistence.jdbc.url"
+				value="jdbc:mysql://192.168.126.174:3306/jpa_example" />
+			<property name="javax.persistence.jdbc.user" value="root" />
+			<property name="javax.persistence.jdbc.password" value="tommaso" />
+			<property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver" />
+
+			<!-- Hibernate properties -->
+			<property name="hibernate.show_sql" value="false" />
+			<property name="hibernate.format_sql" value="true" />
+			<property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5InnoDBDialect" />
+			<property name="hibernate.hbm2ddl.auto" value="update" />
+			<property name="hibernate.connection.autocommit" value="true" />
+		</properties>
+	</persistence-unit>
+	
+	<!-- unità di persistenza file di configurazione per accesso a DB nosql -->
+	<persistence-unit name="AusdaExtension" transaction-type="JTA">
+
+		<description>My database connector to couchdb</description>
+		<provider>org.hibernate.ogm.jpa.HibernateOgmPersistence</provider>
+		<properties>
+			<!-- <property name="hibernate.transaction.jta.platform" value="JBossTS" /> -->
+			<!-- <property name="hibernate.ogm.datastore.provider" value="infinispan" /> -->
+			<property name="hibernate.ogm.datastore.provider" value="org.hibernate.ogm.datastore.couchdb.impl.CouchDBDatastoreProvider" />
+			<property name="hibernate.ogm.datastore.host" value="couchdb.imuttley.cloud:80" />
+			<property name="hibernate.ogm.datastore.database" value="ausdatest" />
+			<property name="hibernate.ogm.datastore.create_database" value="true" />
+		</properties>
+	</persistence-unit>
+	
+</persistence>
+      

@@ -15,6 +15,19 @@
 		<hibernate.version>5.1.10.Final</hibernate.version>
 	</properties>
 
+	<resources>
+     <resource>
+       <directory>src/resource/model</directory>
+     </resource>
+     <resource>
+       <directory>src/resource/view</directory>
+     </resource>
+     <resource>
+       <directory>src/resource/controller</directory>
+     </resource>
+   </resources>
+	
+	
 	<developers>
 		<developer>
 			<id>iMuttley</id>
@@ -102,5 +115,35 @@
 			<version>${hibernate.version}</version>
 		</dependency>
 
+
+		<!-- https://mvnrepository.com/artifact/javax.servlet/servlet-api -->
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>servlet-api</artifactId>
+			<version>2.5</version>
+			<scope>provided</scope>
+		</dependency>
 	</dependencies>
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.wildfly.plugins</groupId>
+				<artifactId>wildfly-maven-plugin</artifactId>
+				<version>1.2.1.Final</version>
+				<executions>
+					<execution>
+						<phase>install</phase>
+						<goals>
+							<goal>deploy-artifact</goal>
+						</goals>
+						<configuration>
+							<groupId>postgresql</groupId>
+							<artifactId>postgresql</artifactId>
+							<name>postgresql.jar</name>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
 </project>
