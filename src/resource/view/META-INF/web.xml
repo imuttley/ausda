@@ -1,66 +1,46 @@
-<persistence xmlns="http://xmlns.jcp.org/xml/ns/persistence"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd"
-	version="2.1">
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
+	http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+	id="WebApp_ID" version="2.5">
 
-	<!-- unità di persistenza file di configurazione per accesso a DB generico per analisi su schema 'AusdaDATABASE' -->
-	<persistence-unit name="AusdaDATABASE" transaction-type="RESOURCE_LOCAL">
-		<description>My database connector to DB mysql</description>
-		<provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+	<display-name>JavaServerFaces</display-name>
 
-		<properties>
-			<!-- Configuring JDBC properties -->
-			<property name="javax.persistence.jdbc.url"
-				value="jdbc:mysql://192.168.126.174:3306/jpa_example" />
-			<property name="javax.persistence.jdbc.user" value="root" />
-			<property name="javax.persistence.jdbc.password" value="tommaso" />
-			<property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver" />
+	<!-- Change to "Production" when you are ready to deploy -->
+	<context-param>
+		<param-name>javax.faces.PROJECT_STAGE</param-name>
+		<param-value>Development</param-value>
+	</context-param>
 
-			<!-- Hibernate properties -->
-			<property name="hibernate.show_sql" value="true" />
-			<property name="hibernate.format_sql" value="true" />
-			<property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5InnoDBDialect" />
-			<property name="hibernate.hbm2ddl.auto" value="create" />
-			<property name="hibernate.connection.autocommit" value="true" />
-		</properties>
-	</persistence-unit>
-	
-	<!-- unità di persistenza file di configurazione per accesso a DB per test di query, con nome 'AusdaTEST' -->
-	<persistence-unit name="AusdaTEST" transaction-type="RESOURCE_LOCAL">
-		<description>My database connector to DB mysql for query testing</description>
-		<provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+	<!-- Welcome page -->
+	<welcome-file-list>
+		<welcome-file>view/index.xhtml</welcome-file>
+	</welcome-file-list>
 
-		<properties>
-			<!-- Configuring JDBC properties -->
-			<property name="javax.persistence.jdbc.url"
-				value="jdbc:mysql://192.168.126.174:3306/jpa_example" />
-			<property name="javax.persistence.jdbc.user" value="root" />
-			<property name="javax.persistence.jdbc.password" value="tommaso" />
-			<property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver" />
+	<!-- JSF mapping -->
+	<servlet>
+		<servlet-name>Faces Servlet</servlet-name>
+		<servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
 
-			<!-- Hibernate properties -->
-			<property name="hibernate.show_sql" value="false" />
-			<property name="hibernate.format_sql" value="true" />
-			<property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5InnoDBDialect" />
-			<property name="hibernate.hbm2ddl.auto" value="update" />
-			<property name="hibernate.connection.autocommit" value="true" />
-		</properties>
-	</persistence-unit>
-	
-	<!-- unità di persistenza file di configurazione per accesso a DB nosql -->
-	<persistence-unit name="AusdaExtension" transaction-type="JTA">
+	<!-- Map these files with JSF -->
+	<servlet-mapping>
+		<servlet-name>Faces Servlet</servlet-name>
+		<url-pattern>/view/*</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>Faces Servlet</servlet-name>
+		<url-pattern>*.jsf</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>Faces Servlet</servlet-name>
+		<url-pattern>*.faces</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>Faces Servlet</servlet-name>
+		<url-pattern>*.xhtml</url-pattern>
+	</servlet-mapping>
 
-		<description>My database connector to couchdb</description>
-		<provider>org.hibernate.ogm.jpa.HibernateOgmPersistence</provider>
-		<properties>
-			<!-- <property name="hibernate.transaction.jta.platform" value="JBossTS" /> -->
-			<!-- <property name="hibernate.ogm.datastore.provider" value="infinispan" /> -->
-			<property name="hibernate.ogm.datastore.provider" value="org.hibernate.ogm.datastore.couchdb.impl.CouchDBDatastoreProvider" />
-			<property name="hibernate.ogm.datastore.host" value="couchdb.imuttley.cloud:80" />
-			<property name="hibernate.ogm.datastore.database" value="ausdatest" />
-			<property name="hibernate.ogm.datastore.create_database" value="true" />
-		</properties>
-	</persistence-unit>
-	
-</persistence>
-      
+</web-app>
