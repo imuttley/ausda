@@ -3,8 +3,10 @@
 	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd"
 	version="2.1">
 
-	<!-- unità di persistenza file di configurazione per accesso a DB generico per analisi su schema 'AusdaDATABASE' -->
-	<persistence-unit name="AusdaDATABASE" transaction-type="RESOURCE_LOCAL">
+	<!-- unità di persistenza file di configurazione per accesso a DB generico 
+		per analisi su schema 'AusdaDATABASE' -->
+	<persistence-unit name="AusdaDATABASE"
+		transaction-type="RESOURCE_LOCAL">
 		<description>My database connector to DB mysql</description>
 		<provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
 
@@ -24,8 +26,9 @@
 			<property name="hibernate.connection.autocommit" value="true" />
 		</properties>
 	</persistence-unit>
-	
-	<!-- unità di persistenza file di configurazione per accesso a DB per test di query, con nome 'AusdaTEST' -->
+
+	<!-- unità di persistenza file di configurazione per accesso a DB per test 
+		di query, con nome 'AusdaTEST' -->
 	<persistence-unit name="AusdaTEST" transaction-type="RESOURCE_LOCAL">
 		<description>My database connector to DB mysql for query testing</description>
 		<provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
@@ -46,21 +49,27 @@
 			<property name="hibernate.connection.autocommit" value="true" />
 		</properties>
 	</persistence-unit>
-	
+
 	<!-- unità di persistenza file di configurazione per accesso a DB nosql -->
-	<persistence-unit name="AusdaExtension" transaction-type="JTA">
+	<persistence-unit name="AusdaExtension"
+		transaction-type="JTA">
 
 		<description>My database connector to couchdb</description>
 		<provider>org.hibernate.ogm.jpa.HibernateOgmPersistence</provider>
 		<properties>
-			<!-- <property name="hibernate.transaction.jta.platform" value="JBossTS" /> -->
-			<!-- <property name="hibernate.ogm.datastore.provider" value="infinispan" /> -->
-			<property name="hibernate.ogm.datastore.provider" value="org.hibernate.ogm.datastore.couchdb.impl.CouchDBDatastoreProvider" />
+			<!-- <property name="hibernate.transaction.jta.platform" value="JBossTS" 
+				/> -->
+			<!-- <property name="hibernate.ogm.datastore.provider" value="infinispan" 
+				/> -->
+			<property name="hibernate.ogm.datastore.provider"
+				value="org.hibernate.ogm.datastore.couchdb.impl.CouchDBDatastoreProvider" />
 			<property name="hibernate.ogm.datastore.host" value="couchdb.imuttley.cloud:80" />
 			<property name="hibernate.ogm.datastore.database" value="ausdatest" />
-			<property name="hibernate.ogm.datastore.create_database" value="true" />
+			<property name="hibernate.ogm.datastore.create_database"
+				value="true" />
+			<property name="jboss.as.jpa.providerModule" value="application" />
 		</properties>
 	</persistence-unit>
-	
+
 </persistence>
       

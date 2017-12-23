@@ -14,25 +14,9 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<hibernate.version>5.1.10.Final</hibernate.version>
 	</properties>
-
-	<resources>
-		<resource>
-			<directory>src/resource/model</directory>
-		</resource>
-		<resource>
-			<directory>src/resource/view</directory>
-		</resource>
-		<resource>
-			<directory>src/resource/controller</directory>
-		</resource>
-	</resources>
-
-	<!-- <modules>
-		<module>dbmodel</module>
-		<module>applicationcontroller</module>
-		<module>webview</module>
-	</modules>-->
-
+	<!-- -->
+	<!-- <modules> <module>dbmodel</module> <module>applicationcontroller</module> 
+		<module>webview</module> </modules> -->
 	<developers>
 		<developer>
 			<id>iMuttley</id>
@@ -51,6 +35,20 @@
 			</properties>
 		</developer>
 	</developers>
+
+
+	<!-- BOM for hiberante noSQL -->
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>org.hibernate.ogm</groupId>
+				<artifactId>hibernate-ogm-bom</artifactId>
+				<version>5.2.0.Beta1</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
 
 	<dependencies>
 		<dependency>
@@ -78,6 +76,11 @@
 			<version>1</version>
 		</dependency>
 
+		<dependency>
+			<groupId>org.jboss.jbossts</groupId>
+			<artifactId>jbossjta</artifactId>
+			<version>4.16.4.Final</version>
+		</dependency>
 
 		<dependency>
 			<groupId>org.apache.maven.plugins</groupId>
@@ -122,6 +125,55 @@
 
 
 		<dependency>
+			<groupId>org.hibernate.ogm</groupId>
+			<artifactId>hibernate-ogm-couchdb</artifactId>
+			<version>5.1.0.Final</version>
+			<exclusions>
+				<exclusion>
+					<artifactId>xml-apis</artifactId>
+					<groupId>xml-apis</groupId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<dependency>
+			<groupId>org.hibernate.ogm</groupId>
+			<artifactId>hibernate-ogm-infinispan</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.hibernate.javax.persistence</groupId>
+			<artifactId>hibernate-jpa-2.1-api</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.jboss.spec.javax.transaction</groupId>
+			<artifactId>jboss-transaction-api_1.2_spec</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.jboss.narayana.jta</groupId>
+			<artifactId>narayana-jta</artifactId>
+			<version>5.4.0.Final</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-search-orm</artifactId>
+			<exclusions>
+				<exclusion>
+					<artifactId>xml-apis</artifactId>
+					<groupId>xml-apis</groupId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.jboss/jboss-transaction-spi -->
+		<dependency>
+			<groupId>org.jboss</groupId>
+			<artifactId>jboss-transaction-spi</artifactId>
+			<version>7.6.0.Final</version>
+		</dependency>
+
+
+
+
+		<dependency>
 			<groupId>javax.faces</groupId>
 			<artifactId>jsf-api</artifactId>
 			<version>2.0</version>
@@ -129,21 +181,42 @@
 		</dependency>
 	</dependencies>
 	<build>
+		<resources>
+			<resource>
+				<directory>src\resource\model</directory>
+			</resource>
+			<resource>
+				<directory>src\resource\view</directory>
+			</resource>
+			<resource>
+				<directory>src\resource\controller</directory>
+			</resource>
+		</resources>
 		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-war-plugin</artifactId>
+				<configuration>
+					<webXml>src\resource\view\WEB-INF\web.xml</webXml>
+				</configuration>
+			</plugin>
 			<plugin>
 				<groupId>org.wildfly.plugins</groupId>
 				<artifactId>wildfly-maven-plugin</artifactId>
-				<version>1.2.1.Final</version>
+				<version>1.0.2.Final</version>
 				<executions>
 					<execution>
 						<phase>install</phase>
 						<goals>
-							<goal>deploy-artifact</goal>
+							<goal>deploy</goal>
 						</goals>
 						<configuration>
-							<groupId>postgresql</groupId>
-							<artifactId>postgresql</artifactId>
-							<name>postgresql.jar</name>
+							<hostname>192.107.94.227</hostname>
+							<username>wildfly</username>
+							<password>wildfly</password>
+							<groupId>it.enea.imuttley</groupId>
+							<artifactId>ausda-webapplication</artifactId>
+							<name>ausda-webapplication-1.0.war</name>
 						</configuration>
 					</execution>
 				</executions>
